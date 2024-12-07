@@ -6,12 +6,17 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  max-width: 400px;
+  width: 100%;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
 }
 
 .search-bar {
   display: flex;
   align-items: center;
   gap: 12px;
+  width: 100%;
+  margin-bottom: 20px;
 }
 
 .search-bar input {
@@ -23,6 +28,7 @@
   color: #626262;
   background: #ebfffc;
   font-size: 18px;
+  width: calc(100% - 70px);
 }
 
 .search-bar img {
@@ -31,6 +37,11 @@
   border-radius: 50%;
   background: #ebfffc;
   cursor: pointer;
+  transition: background 0.3s;
+}
+
+.search-bar img:hover {
+  background: #d1f7f3;
 }
 
 .weather-icon {
@@ -42,6 +53,7 @@
   color: #fff;
   font-size: 80px;
   line-height: 1;
+  margin: 10px 0;
 }
 
 .location {
@@ -50,26 +62,64 @@
 }
 
 .weather-data {
-    width: 100%;
-    margin-top: 40px;
-    color: #fff;
-    display: flex;
-    justify-content: space-between;
+  width: 100%;
+  margin-top: 40px;
+  color: #fff;
+  display: flex;
+  justify-content: space-between;
 }
 
 .weather-data .col {
-    display: flex;
-    align-items: flex-start;
-    gap: 12px;
-    font-size: 22px;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  font-size: 22px;
 }
 
 .weather-data .col span {
-    display: block;
-    font-size: 16px;
+  display: block;
+  font-size: 16px;
+  color: #ccc;
 }
 
 .weather-data .col img {
-    width: 26px;
-    margin-top: 10px;
+  width: 26px;
+  margin-top: 10px;
+}
+
+/* Loading Spinner */
+.loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  color: #fff;
+  font-size: 20px;
+}
+
+.loading .spinner {
+  width: 50px;
+  height: 50px;
+  border: 6px solid rgba(255, 255, 255, 0.2);
+  border-top: 6px solid #fff;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Weather Content */
+.weather-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
 }
