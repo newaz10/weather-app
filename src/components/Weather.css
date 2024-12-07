@@ -12,9 +12,7 @@
 }
 
 .search-bar {
-  display: flex;
-  align-items: center;
-  gap: 12px;
+  position: relative; 
   width: 100%;
   margin-bottom: 20px;
 }
@@ -24,24 +22,28 @@
   border: none;
   outline: none;
   border-radius: 40px;
-  padding-left: 25px;
+  padding-left: 25px; 
+  padding-right: 50px; 
   color: #626262;
   background: #ebfffc;
   font-size: 18px;
-  width: calc(100% - 70px);
+  width: 100%;
 }
 
 .search-bar img {
-  width: 50px;
-  padding: 15px;
-  border-radius: 50%;
-  background: #ebfffc;
+  position: absolute;
+  right: 15px; 
+  top: 50%; 
+  transform: translateY(-50%); 
+  width: 30px; 
+  height: 30px;
   cursor: pointer;
   transition: background 0.3s;
 }
 
 .search-bar img:hover {
-  background: #d1f7f3;
+  background: #d1f7f3; 
+  border-radius: 50%; 
 }
 
 .weather-icon {
@@ -67,24 +69,36 @@
   color: #fff;
   display: flex;
   justify-content: space-between;
+  gap: 30px; 
 }
 
 .weather-data .col {
   display: flex;
-  align-items: flex-start;
-  gap: 12px;
+  align-items: center; 
+  justify-content: center; 
+  gap: 10px; 
   font-size: 22px;
 }
 
-.weather-data .col span {
-  display: block;
-  font-size: 16px;
-  color: #ccc;
+.weather-data .col img {
+  width: 36px; 
+  margin: 0; 
 }
 
-.weather-data .col img {
-  width: 26px;
-  margin-top: 10px;
+.weather-data .col div {
+  display: flex;
+  flex-direction: column;
+  align-items: center; 
+}
+
+.weather-data .col p {
+  margin: 0; 
+}
+
+.weather-data .col span {
+  font-size: 16px;
+  color: #ccc;
+  margin-top: 5px; 
 }
 
 /* Loading Spinner */
@@ -122,4 +136,71 @@
   flex-direction: column;
   align-items: center;
   text-align: center;
+}
+
+/* Error Message */
+.error {
+  color: #ff4d4d;
+  font-size: 18px;
+  margin-top: 20px;
+  text-align: center;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .weather {
+    padding: 20px;
+    box-shadow: none;
+  }
+
+  .search-bar input {
+    font-size: 16px;
+    padding-left: 15px;
+  }
+
+  .search-bar img {
+    width: 40px;
+    height: 40px;
+  }
+
+  .temperature {
+    font-size: 60px;
+  }
+
+  .location {
+    font-size: 30px;
+  }
+
+  .weather-data {
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+  }
+
+  .weather-data .col {
+    gap: 8px;
+    font-size: 18px;
+  }
+
+  .weather-data .col img {
+    width: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .temperature {
+    font-size: 50px;
+  }
+
+  .location {
+    font-size: 24px;
+  }
+
+  .weather-data .col {
+    font-size: 16px;
+  }
+
+  .weather-data .col span {
+    font-size: 14px;
+  }
 }

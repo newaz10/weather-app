@@ -12,6 +12,8 @@ import wind_icon from "../assets/wind.png";
 const Weather = () => {
   const [weatherData, setWeatherData] = useState(null);
   const [city, setCity] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
   const allIcons = {
     "01d": clear_icon,
@@ -30,7 +32,16 @@ const Weather = () => {
     "13n": snow_icon,
   };
 
+  // Search function to fetch weather data based on the city
   const search = async (city) => {
+    if (!city.trim()) {
+      setError("Please enter a city name.");
+      return;
+    }
+
+    setLoading(true);
+    setError("");
+
     try {
       const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${
         import.meta.env.VITE_APP_ID
@@ -54,10 +65,13 @@ const Weather = () => {
       });
     } catch (error) {
       console.error("Error fetching weather data:", error);
-      alert("Failed to fetch weather data. Please try again.");
+      setError("Failed to fetch weather data. Please try again.");
+    } finally {
+      setLoading(false);
     }
   };
 
+  // Use effect to set the default city when the app is first loaded
   useEffect(() => {
     search("Dhaka");
   }, []);
@@ -67,43 +81,50 @@ const Weather = () => {
       <div className="search-bar">
         <input
           type="text"
-          placeholder="Search"
+          placeholder="Search city"
           value={city}
           onChange={(e) => setCity(e.target.value)}
+          onKeyDown={(e) => e.key === "Enter" && search(city)}
         />
         <img
           src={search_icon}
-          alt=""
+          alt="search"
           onClick={() => search(city)}
           style={{ cursor: "pointer" }}
         />
       </div>
-      {weatherData ? (
-        <>
+
+      {loading ? (
+        <div className="loading">
+          <div className="spinner"></div>
+          <p>Fetching weather data...</p>
+        </div>
+      ) : error ? (
+        <p className="error">{error}</p>
+      ) : weatherData ? (
+        <div className="weather-content">
           <img src={weatherData.icon} alt="" className="weather-icon" />
           <p className="temperature">{weatherData.temperature}°C</p>
           <p className="location">{weatherData.location}</p>
-
           <div className="weather-data">
             <div className="col">
-              <img src={humidity_icon} alt="" />
+              <img src={humidity_icon} alt="humidity" />
               <div>
                 <p>{weatherData.humidity}%</p>
                 <span>Humidity</span>
               </div>
             </div>
-
             <div className="col">
-              <img src={wind_icon} alt="" />
+              <img src={wind_icon} alt="wind" />
               <div>
                 <p>{weatherData.windSpeed} Km/h</p>
                 <span>Wind Speed</span>
               </div>
             </div>
           </div>
-        </>
+        </div>
       ) : (
-        <p>Loading...</p>
+        <p>No data available</p>
       )}
     </div>
   );
